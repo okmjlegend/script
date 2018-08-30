@@ -1,0 +1,15 @@
+{
+  "name": "image_generator_v2.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "canvas": "^1.6.11",
+    "gm": "^1.23.1"
+  }
+}

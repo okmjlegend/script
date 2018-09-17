@@ -59,13 +59,11 @@ module.exports.getDetail = async(query_text, room) => {
     try {
         detail = await http_service.getDetailInfo(room.id, true);
     } catch (e) {
-        console.log(e)
-        return;
+        throw new Error(e)
     }
 
-    if (!detail) {
-        console.log(room.name + ' 爬取失败，room id 为 ' + room.id)
-        return;
+    if (!detail.toString()) {
+        throw new Error()
     }
 
     //价格
@@ -113,6 +111,10 @@ module.exports.getDetail = async(query_text, room) => {
     //管家信息
     let keeper_info = await http_service.getKeeperInfo(detail.id, detail.house_id, detail.resblock.id, detail.house_type)
 
+    //面积
+    let area = parseFloat(detail.area.replace('约', ''));
+
+
     //保存数据
     return await Room.Add({
         house_id: detail.house_id,
@@ -121,7 +123,7 @@ module.exports.getDetail = async(query_text, room) => {
         room_name: detail.name,
         room_code: detail.code,
         room_version: detail.version_name,
-        room_area: parseFloat(detail.area),
+        room_area: !!area ? area : 0,
         room_introduction: detail.introduction,
         room_floor: parseInt(detail.floor),
         room_floor_total: parseInt(detail.floor_total),
@@ -133,7 +135,7 @@ module.exports.getDetail = async(query_text, room) => {
         roommates: JSON.stringify(detail.roommates),
         config: JSON.stringify(detail.config),
         house_subway: JSON.stringify(detail.resblock.subway),
-        house_build_year: parseInt(detail.resblock.build_year),
+        house_build_year: parseInt(detail.resblock.build_year) || 0,
         house_build_type: detail.resblock.build_type,
         house_name: detail.resblock.name,
         house_heating_type: detail.resblock.heating_type,

@@ -21,7 +21,13 @@ const init = async url => {
 
         for (let j = 0, sum_j = room_list.length; j < sum_j; j++) {
             if (cache.indexOf(room_list[j].id) == -1) {
-                await spider_service.getDetail(query_list[i].text, room_list[j]);
+                try {
+                    await spider_service.getDetail(query_list[i].text, room_list[j]);
+                } catch (e) {
+                    console.error(room_list[j].name + ' 爬取失败，room id 为 ' + room_list[j].id)
+                    continue;
+                }
+
                 cache.push(room_list[j].id)
 
                 end_time = new Date().getTime();
@@ -31,6 +37,10 @@ const init = async url => {
             }
         }
     }
+    // await spider_service.getDetail('', {
+    //     id: 60019693,
+    //     name: '自如友家·京城仁合·3居室-02卧'
+    // });
 
     end_time = new Date().getTime();
     console.log('\n\n\n')

@@ -5,6 +5,30 @@ const request = require('request')
 const fs = require('fs')
 const path = require('path')
 
+const getDetail = async(url, count) => {
+    return new Promise((resolve, reject) => {
+        superagent
+            .get(url)
+            .end(async function(err, res) {
+                // 抛错拦截
+                if (err) {
+                    reject(err);
+                    return;
+                }
+
+                if (res.body.error_code == 0 && count > 0) {
+                    if (!res.body.data.toString()) {
+                        return await getDetail(url, --count)
+                    } else {
+                        resolve(res.body.data);
+                    }
+                } else {
+                    resolve([]);
+                }
+            });
+    })
+}
+
 /**
  * 获取房屋信息
  * @param {*} room_id 
@@ -13,24 +37,9 @@ module.exports.getDetailInfo = async(room_id) => {
     let url = define.detail_url
         .replace('{room_id}', room_id)
 
-    return new Promise((resolve, reject) => {
-        superagent
-            .get(url)
-            // .set('Cookie', cookie_str)
-            .end(function(err, res) {
-                // 抛错拦截
-                if (err) {
-                    reject(err);
-                    return;
-                }
+    let count = 4;
 
-                if (res.body.error_code == 0) {
-                    resolve(res.body.data);
-                } else {
-                    resolve(null);
-                }
-            });
-    })
+    return await getDetail(url, count);
 }
 
 /**

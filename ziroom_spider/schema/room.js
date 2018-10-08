@@ -132,6 +132,6 @@ module.exports = (sequelize, DataTypes) => {
             field: 'CreateTime'
         }
     }, {
-        tableName: 'room'
+        tableName: 'room20181003'
     })
 }

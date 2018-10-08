@@ -9,6 +9,9 @@ const getDetail = async(url, count) => {
     return new Promise((resolve, reject) => {
         superagent
             .get(url)
+            .timeout({
+                deadline: 30000,
+            })
             .end(async function(err, res) {
                 // 抛错拦截
                 if (err) {
@@ -91,6 +94,9 @@ module.exports.getQueryList = async url => {
     return new Promise((resolve, reject) => {
         superagent
             .get(url)
+            .timeout({
+                deadline: 30000,
+            })
             .end(function(err, res) {
                 // 抛错拦截
                 if (err) {
@@ -123,6 +129,9 @@ module.exports.getKeeperInfo = async(room_id, house_id, resblock_id, house_type)
     return new Promise((resolve, reject) => {
         superagent
             .get(url)
+            .timeout({
+                deadline: 30000,
+            })
             .end(function(err, res) {
                 // 抛错拦截
                 if (err) {

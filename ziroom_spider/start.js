@@ -33,6 +33,7 @@ const init = async url => {
                 end_time = new Date().getTime();
                 console.log(room_list[j].name)
                 console.log('-------------已爬取' + cache.length + '个出租房屋，目前耗时' + utils.getTimeRange(end_time - start_time) + '-------------')
+                console.log('-------------本次查询还剩' + (room_list.length - j) + '个房屋-------------')
                 console.log('\n')
             }
         }

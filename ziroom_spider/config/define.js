@@ -8,12 +8,12 @@ module.exports.detail_url = 'http://m.ziroom.com/v7/room/detail.json?city_code=1
 
 module.exports.keeper_url = 'http://m.ziroom.com/v7/room/detail-steward.json?id={room_id}&house_id={house_id}&resblock_id={resblock_id}&house_type={house_type}'
 
-module.exports.clear_table_sql = 'delete from room;'
+module.exports.clear_table_sql = 'delete from room20181003;'
 
-module.exports.delete_table_sql = 'DROP TABLE IF EXISTS `room`;'
+module.exports.delete_table_sql = 'DROP TABLE IF EXISTS `room20181003`;'
 
 module.exports.create_table_sql =
-    'CREATE TABLE `room` (' +
+    'CREATE TABLE `room20181003` (' +
     '   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT,' +
     '   `HouseId` int(20) DEFAULT NULL,' +
     '   `HouseCode` varchar(50) DEFAULT NULL,' +
@@ -50,7 +50,9 @@ module.exports.create_table_sql =
     ') ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;'
 
 module.exports.db_config = {
-
+    username: 'root',
+    password: 'Legend1qaz@wsx',
+    host: '39.105.89.237',
     port: 3306,
     database: 'ziroom',
     dialectOptions: {
